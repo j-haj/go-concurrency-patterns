@@ -12,15 +12,13 @@ func GenerateFilter(filterVal int, source <-chan int) <-chan int {
 		for {
 			select {
 			case v := <-source:
-				{
-					if v == filterVal {
-						if !encounteredFirstVal {
-							encounteredFirstVal = true
-							output <- v
-						}
-					} else {
+				if v == filterVal {
+					if !encounteredFirstVal {
+						encounteredFirstVal = true
 						output <- v
 					}
+				} else {
+					output <- v
 				}
 			}
 		}
